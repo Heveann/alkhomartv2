@@ -11,9 +11,11 @@
         <div class="page-header-subtitle">Informasi lengkap terkait pesanan pelanggan</div>
     </div>
     <div class="flex gap-2">
+        <?php if($order->status === 'selesai'): ?>
         <a href="<?php echo e(route('admin.orders.pdf', $order)); ?>" target="_blank" class="btn btn-danger">
             <i class="bi bi-file-earmark-pdf"></i> Export PDF
         </a>
+        <?php endif; ?>
         <a href="<?php echo e(route('admin.orders.index')); ?>" class="btn btn-light">
             <i class="bi bi-arrow-left"></i> Kembali
         </a>

@@ -82,8 +82,9 @@
                                 @foreach($product->sizes as $size)
                                     <div>
                                         <input type="radio" name="size" id="size_{{ $size->id }}" value="{{ $size->size }}" class="peer hidden" {{ $size->stock <= 0 ? 'disabled' : '' }}>
-                                        <label for="size_{{ $size->id }}" class="flex items-center justify-center min-w-[3rem] px-4 py-3 border border-gray-200 cursor-pointer text-sm font-medium transition-all peer-checked:bg-black peer-checked:text-white peer-checked:border-black hover:border-black peer-disabled:opacity-30 peer-disabled:cursor-not-allowed">
-                                            {{ $size->size }}
+                                        <label for="size_{{ $size->id }}" class="flex flex-col items-center justify-center min-w-[4.5rem] px-3 py-2 border border-gray-200 cursor-pointer transition-all peer-checked:bg-black peer-checked:text-white peer-checked:border-black hover:border-black peer-disabled:opacity-30 peer-disabled:cursor-not-allowed">
+                                            <span class="text-sm font-bold">{{ $size->size }}</span>
+                                            <span class="text-[10px] font-normal opacity-70 mt-0.5">Sisa: {{ $size->stock }}</span>
                                         </label>
                                     </div>
                                 @endforeach

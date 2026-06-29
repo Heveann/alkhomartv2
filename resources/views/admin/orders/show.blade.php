@@ -12,9 +12,11 @@
         <div class="page-header-subtitle">Informasi lengkap terkait pesanan pelanggan</div>
     </div>
     <div class="flex gap-2">
+        @if($order->status === 'selesai')
         <a href="{{ route('admin.orders.pdf', $order) }}" target="_blank" class="btn btn-danger">
             <i class="bi bi-file-earmark-pdf"></i> Export PDF
         </a>
+        @endif
         <a href="{{ route('admin.orders.index') }}" class="btn btn-light">
             <i class="bi bi-arrow-left"></i> Kembali
         </a>

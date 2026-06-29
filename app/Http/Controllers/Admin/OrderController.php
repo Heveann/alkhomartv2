@@ -145,11 +145,8 @@ class OrderController extends Controller
 
     public function exportPdf(Request $request)
     {
-        $query = Order::with('user', 'items')->latest();
-
-        if ($request->filled('status')) {
-            $query->where('status', $request->status);
-        }
+        // Force only 'selesai' orders for export
+        $query = Order::with('user', 'items')->where('status', 'selesai')->latest();
 
         if ($request->filled('tipe')) {
             $query->where('tipe', $request->tipe);

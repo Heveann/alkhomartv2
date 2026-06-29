@@ -151,7 +151,12 @@
                 {
                     extend: 'excelHtml5',
                     className: 'hidden',
-                    exportOptions: { columns: [0, 1, 2, 3, 4, 5, 6] }
+                    exportOptions: { 
+                        columns: [0, 1, 2, 3, 4, 5, 6],
+                        rows: function ( idx, data, node ) {
+                            return data.status ? data.status.toLowerCase().includes('selesai') : false;
+                        }
+                    }
                 },
                 {
                     extend: 'pdfHtml5',

@@ -83,9 +83,9 @@
                                 <?php $__currentLoopData = $product->sizes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $size): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <div>
                                         <input type="radio" name="size" id="size_<?php echo e($size->id); ?>" value="<?php echo e($size->size); ?>" class="peer hidden" <?php echo e($size->stock <= 0 ? 'disabled' : ''); ?>>
-                                        <label for="size_<?php echo e($size->id); ?>" class="flex items-center justify-center min-w-[3rem] px-4 py-3 border border-gray-200 cursor-pointer text-sm font-medium transition-all peer-checked:bg-black peer-checked:text-white peer-checked:border-black hover:border-black peer-disabled:opacity-30 peer-disabled:cursor-not-allowed">
-                                            <?php echo e($size->size); ?>
-
+                                        <label for="size_<?php echo e($size->id); ?>" class="flex flex-col items-center justify-center min-w-[4.5rem] px-3 py-2 border border-gray-200 cursor-pointer transition-all peer-checked:bg-black peer-checked:text-white peer-checked:border-black hover:border-black peer-disabled:opacity-30 peer-disabled:cursor-not-allowed">
+                                            <span class="text-sm font-bold"><?php echo e($size->size); ?></span>
+                                            <span class="text-[10px] font-normal opacity-70 mt-0.5">Sisa: <?php echo e($size->stock); ?></span>
                                         </label>
                                     </div>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

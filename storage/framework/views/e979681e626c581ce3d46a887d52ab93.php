@@ -3,12 +3,9 @@
 <?php $__env->startSection('content'); ?>
 <div class="w-full max-w-[900px] bg-white rounded-2xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.1)] overflow-hidden flex flex-col md:flex-row min-h-[500px]">
     
-    <!-- Left Side: Gradient Background -->
-    <div class="w-full md:w-1/2 bg-gradient-to-br from-[#6f42c1] to-[#0d6efd] p-10 md:p-12 text-white flex flex-col justify-center items-center text-center">
-        <h1 class="text-3xl font-extrabold tracking-wide mb-4">WELCOME</h1>
-        <p class="text-white/90 text-sm leading-relaxed max-w-[300px]">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean imperdiet neque vitae cursus vehicula. Duis ultricies sapien nec dui egestas.
-        </p>
+    <!-- Left Side: Image Background -->
+    <div class="w-full md:w-1/2 bg-slate-50 flex justify-center items-center p-8 md:p-12">
+        <img src="<?php echo e(asset('storage/img/login.png')); ?>" alt="Login" class="w-full max-w-[350px] h-auto object-contain drop-shadow-lg">
     </div>
 
     <!-- Right Side: Login Form -->

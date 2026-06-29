@@ -39,7 +39,7 @@
             </div>
 
             <!-- Product Selection -->
-            <div class="card-body overflow-y-auto pr-2 flex-1 min-h-0">
+            <div class="card-body overflow-y-auto pr-2 flex-1 min-h-0" style="max-height: 620px;">
                 <div class="grid grid-cols-2 md:grid-cols-3 gap-4 items-start content-start">
                     <?php $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <div class="product-item" x-show="keyword === '' || '<?php echo e(addslashes(strtolower($product->nama_produk))); ?>'.includes(keyword.toLowerCase())">
