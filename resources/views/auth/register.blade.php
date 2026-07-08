@@ -5,8 +5,8 @@
 <div class="w-full max-w-[900px] bg-white rounded-2xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.1)] overflow-hidden flex flex-col md:flex-row min-h-[500px]">
     
     <!-- Left Side: Image Background -->
-    <div class="w-full md:w-1/2 bg-slate-50 flex justify-center items-center p-8 md:p-12">
-        <img src="{{ asset('storage/img/register.png') }}" alt="Register" class="w-full max-w-[350px] h-auto object-contain drop-shadow-lg">
+    <div class="hidden md:flex w-full md:w-1/2 bg-slate-50 justify-center items-center p-8 md:p-12">
+        <img src="{{ asset('storage/img/register.png') }}" alt="" aria-hidden="true" class="w-full max-w-[350px] h-auto object-contain drop-shadow-lg">
     </div>
 
     <!-- Right Side: Register Form -->
@@ -67,7 +67,7 @@
                             <input :type="show1 ? 'text' : 'password'" name="password" id="password" required
                                 class="w-full pl-3 pr-8 py-2.5 bg-white border border-slate-200 rounded-lg text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition shadow-sm placeholder:text-slate-400 @error('password') border-red-500 ring-red-500/20 @enderror"
                                 placeholder="Buat password">
-                            <button type="button" @click="show1 = !show1" class="absolute inset-y-0 right-0 flex items-center pr-2.5 text-slate-400 hover:text-slate-600 focus:outline-none">
+                            <button type="button" @click="show1 = !show1" :aria-pressed="show1" aria-label="Tampilkan password" class="absolute inset-y-0 right-0 flex items-center pr-2.5 text-slate-400 hover:text-slate-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded">
                                 <i class="bi" :class="show1 ? 'bi-eye' : 'bi-eye-slash'"></i>
                             </button>
                         </div>
@@ -78,7 +78,7 @@
                             <input :type="show2 ? 'text' : 'password'" name="password_confirmation" id="password_confirmation" required
                                 class="w-full pl-3 pr-8 py-2.5 bg-white border border-slate-200 rounded-lg text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition shadow-sm placeholder:text-slate-400"
                                 placeholder="Ulangi">
-                            <button type="button" @click="show2 = !show2" class="absolute inset-y-0 right-0 flex items-center pr-2.5 text-slate-400 hover:text-slate-600 focus:outline-none">
+                            <button type="button" @click="show2 = !show2" :aria-pressed="show2" aria-label="Tampilkan konfirmasi password" class="absolute inset-y-0 right-0 flex items-center pr-2.5 text-slate-400 hover:text-slate-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded">
                                 <i class="bi" :class="show2 ? 'bi-eye' : 'bi-eye-slash'"></i>
                             </button>
                         </div>

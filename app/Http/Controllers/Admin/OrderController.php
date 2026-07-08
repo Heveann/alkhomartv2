@@ -173,7 +173,7 @@ class OrderController extends Controller
             $query->whereMonth('created_at', $month)->whereYear('created_at', $year);
         }
 
-        $orders = $query->get();
+        $orders = $query->with(['user', 'items.product'])->limit(1000)->get();
         $pdf = Pdf::loadView('admin.orders.export_pdf', compact('orders'));
         return $pdf->download('Rekap_Pesanan_' . date('Y-m-d') . '.pdf');
     }

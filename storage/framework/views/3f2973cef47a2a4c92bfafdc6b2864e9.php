@@ -43,12 +43,12 @@
         <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:p-0">
             <div x-show="showModal" @click="showModal = false" x-transition.opacity class="fixed inset-0 transition-opacity bg-slate-900/50" aria-hidden="true"></div>
 
-            <div x-show="showModal" x-transition class="relative inline-block w-full max-w-md p-6 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-lg">
+            <div x-show="showModal" x-transition class="relative inline-block w-full max-w-md p-4 sm:p-6 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-lg" role="dialog" aria-modal="true" aria-labelledby="modal-title-add">
                 <div class="flex items-center justify-between mb-5">
-                    <h3 class="text-lg font-bold text-dark flex items-center">
+                    <h3 id="modal-title-add" class="text-lg font-bold text-dark flex items-center">
                         <i class="bi bi-tag text-primary mr-2"></i> Tambah Kategori
                     </h3>
-                    <button @click="showModal = false" class="text-slate-400 hover:text-slate-500 focus:outline-none transition bg-transparent border-none">
+                    <button @click="showModal = false" aria-label="Tutup modal tambah kategori" class="text-slate-400 hover:text-slate-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded transition bg-transparent border-none">
                         <i class="bi bi-x-lg"></i>
                     </button>
                 </div>
@@ -83,12 +83,12 @@ unset($__errorArgs, $__bag); ?>
         <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:p-0">
             <div x-show="showEditModal" @click="showEditModal = false" x-transition.opacity class="fixed inset-0 transition-opacity bg-slate-900/50" aria-hidden="true"></div>
 
-            <div x-show="showEditModal" x-transition class="relative inline-block w-full max-w-md p-6 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-lg">
+            <div x-show="showEditModal" x-transition class="relative inline-block w-full max-w-md p-4 sm:p-6 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-lg" role="dialog" aria-modal="true" aria-labelledby="modal-title-edit">
                 <div class="flex items-center justify-between mb-5">
-                    <h3 class="text-lg font-bold text-dark flex items-center">
+                    <h3 id="modal-title-edit" class="text-lg font-bold text-dark flex items-center">
                         <i class="bi bi-pencil-square text-primary mr-2"></i> Edit Kategori
                     </h3>
-                    <button @click="showEditModal = false" class="text-slate-400 hover:text-slate-500 focus:outline-none transition bg-transparent border-none">
+                    <button @click="showEditModal = false" aria-label="Tutup modal edit kategori" class="text-slate-400 hover:text-slate-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded transition bg-transparent border-none">
                         <i class="bi bi-x-lg"></i>
                     </button>
                 </div>

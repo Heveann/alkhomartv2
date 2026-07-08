@@ -5,8 +5,8 @@
 <div class="w-full max-w-[900px] bg-white rounded-2xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.1)] overflow-hidden flex flex-col md:flex-row min-h-[500px]">
     
     <!-- Left Side: Image Background -->
-    <div class="w-full md:w-1/2 bg-slate-50 flex justify-center items-center p-8 md:p-12">
-        <img src="{{ asset('storage/img/login.png') }}" alt="Login" class="w-full max-w-[350px] h-auto object-contain drop-shadow-lg">
+    <div class="hidden md:flex w-full md:w-1/2 bg-slate-50 justify-center items-center p-8 md:p-12">
+        <img src="{{ asset('storage/img/login.png') }}" alt="" aria-hidden="true" class="w-full max-w-[350px] h-auto object-contain drop-shadow-lg">
     </div>
 
     <!-- Right Side: Login Form -->
@@ -55,7 +55,7 @@
                     <input :type="show ? 'text' : 'password'" name="password" id="password" required
                         class="w-full pl-4 pr-10 py-2.5 bg-white border border-slate-200 rounded-lg text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition shadow-sm placeholder:text-slate-400 @error('password') border-red-500 ring-red-500/20 @enderror"
                         placeholder="Masukkan password Anda">
-                    <button type="button" @click="show = !show" class="absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400 hover:text-slate-600 focus:outline-none">
+                    <button type="button" @click="show = !show" :aria-pressed="show" aria-label="Tampilkan password" class="absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400 hover:text-slate-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded">
                         <i class="bi" :class="show ? 'bi-eye' : 'bi-eye-slash'"></i>
                     </button>
                 </div>

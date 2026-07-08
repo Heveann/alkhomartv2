@@ -54,7 +54,7 @@
                 <div class="hidden lg:flex items-center space-x-6">
                     <?php if(auth()->guard()->check()): ?>
                         <?php if(auth()->user()->isPembeli()): ?>
-                            <a href="<?php echo e(route('pembeli.cart')); ?>" class="text-black hover:text-gray-500 transition relative">
+                            <a href="<?php echo e(route('pembeli.cart')); ?>" aria-label="Keranjang Belanja" class="relative text-black hover:text-gray-500 transition p-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-black rounded">
                                 <!-- Heroicon: shopping-bag -->
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"></path></svg>
                                 <?php $cartCount = \App\Models\Cart::where('user_id', auth()->id())->sum('jumlah'); ?>
@@ -68,7 +68,7 @@
                         <?php endif; ?>
                         
                         <div x-data="{ open: false }" class="relative">
-                            <button @click="open = !open" @click.away="open = false" class="flex items-center gap-2 text-sm font-medium text-black hover:text-gray-500 transition focus:outline-none">
+                            <button @click="open = !open" @click.away="open = false" aria-haspopup="true" :aria-expanded="open" class="flex items-center gap-2 text-sm font-medium text-black hover:text-gray-500 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-black rounded p-1">
                                 <!-- Heroicon: user -->
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"></path></svg>
                                 <span class="max-w-[100px] truncate hidden xl:inline"><?php echo e(explode(' ', auth()->user()->name)[0]); ?></span>
@@ -105,7 +105,7 @@
                             </a>
                         <?php endif; ?>
                     <?php endif; ?>
-                    <button @click="mobileMenuOpen = !mobileMenuOpen" class="text-black focus:outline-none p-1">
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" aria-label="Buka menu navigasi" :aria-expanded="mobileMenuOpen" class="text-black focus:outline-none focus-visible:ring-2 focus-visible:ring-black rounded p-1">
                         <svg x-show="!mobileMenuOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path></svg>
                         <svg x-show="mobileMenuOpen" x-cloak class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"></path></svg>
                     </button>

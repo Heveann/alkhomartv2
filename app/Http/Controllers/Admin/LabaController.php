@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
 class LabaController extends Controller
@@ -54,7 +55,7 @@ class LabaController extends Controller
         }
 
         // Keep the old logic for calculating totals in the cards
-        $query = Order::with('items')->where('status', 'selesai');
+        $query = Order::where('status', 'selesai');
 
         if ($request->filled('tanggal_dari')) {
             $query->whereDate('created_at', '>=', $request->tanggal_dari);
@@ -64,18 +65,21 @@ class LabaController extends Controller
             $query->whereDate('created_at', '<=', $request->tanggal_sampai);
         }
 
-        $orders = $query->latest()->get();
+        $totalPendapatan = $query->sum('total_harga');
 
-        $totalPendapatan = $orders->sum('total_harga');
-        $totalModal = 0;
-        $totalLaba = 0;
-
-        foreach ($orders as $order) {
-            foreach ($order->items as $item) {
-                $totalModal += $item->harga_modal * $item->jumlah;
-                $totalLaba += ($item->harga - $item->harga_modal) * $item->jumlah;
+        $baseItemQuery = OrderItem::whereHas('order', function ($q) use ($request) {
+            $q->where('status', 'selesai');
+            if ($request->filled('tanggal_dari')) {
+                $q->whereDate('created_at', '>=', $request->tanggal_dari);
             }
-        }
+            if ($request->filled('tanggal_sampai')) {
+                $q->whereDate('created_at', '<=', $request->tanggal_sampai);
+            }
+        });
+
+        // Clone query so we don't apply multiple DB raw statements on the same object
+        $totalModal = (clone $baseItemQuery)->sum(DB::raw('harga_modal * jumlah'));
+        $totalLaba = (clone $baseItemQuery)->sum(DB::raw('(harga - harga_modal) * jumlah'));
 
         return view('admin.laba.index', compact(
             'totalPendapatan',

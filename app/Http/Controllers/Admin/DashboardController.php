@@ -7,6 +7,8 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -18,9 +20,7 @@ class DashboardController extends Controller
 
         $totalLaba = OrderItem::whereHas('order', function ($q) {
             $q->where('status', 'selesai');
-        })->get()->sum(function ($item) {
-            return ($item->harga - $item->harga_modal) * $item->jumlah;
-        });
+        })->sum(DB::raw('(harga - harga_modal) * jumlah'));
 
         $recentOrders = Order::with('user')
             ->where('status', 'selesai')
@@ -46,27 +46,35 @@ class DashboardController extends Controller
             $chartLabels[] = $date->translatedFormat('F'); // Full month name
         }
 
-        $monthlyRevenuesOnline = Order::where('status', 'selesai')
-            ->where('tipe', 'online')
-            ->whereYear('created_at', $currentYear)
-            ->selectRaw('MONTH(created_at) as month, SUM(total_harga) as total')
-            ->groupBy('month')
-            ->pluck('total', 'month');
+        $chartDataOnline = Cache::remember('dashboard_chart_online_' . $currentYear, 600, function () use ($currentYear) {
+            $data = array_fill(0, 12, 0);
+            $monthlyRevenues = Order::where('status', 'selesai')
+                ->where('tipe', 'online')
+                ->whereYear('created_at', $currentYear)
+                ->selectRaw('MONTH(created_at) as month, SUM(total_harga) as total')
+                ->groupBy('month')
+                ->pluck('total', 'month');
 
-        foreach ($monthlyRevenuesOnline as $month => $total) {
-            $chartDataOnline[$month - 1] = $total;
-        }
+            foreach ($monthlyRevenues as $month => $total) {
+                $data[$month - 1] = $total;
+            }
+            return $data;
+        });
 
-        $monthlyRevenuesOffline = Order::where('status', 'selesai')
-            ->where('tipe', 'kasir')
-            ->whereYear('created_at', $currentYear)
-            ->selectRaw('MONTH(created_at) as month, SUM(total_harga) as total')
-            ->groupBy('month')
-            ->pluck('total', 'month');
+        $chartDataOffline = Cache::remember('dashboard_chart_offline_' . $currentYear, 600, function () use ($currentYear) {
+            $data = array_fill(0, 12, 0);
+            $monthlyRevenues = Order::where('status', 'selesai')
+                ->where('tipe', 'kasir')
+                ->whereYear('created_at', $currentYear)
+                ->selectRaw('MONTH(created_at) as month, SUM(total_harga) as total')
+                ->groupBy('month')
+                ->pluck('total', 'month');
 
-        foreach ($monthlyRevenuesOffline as $month => $total) {
-            $chartDataOffline[$month - 1] = $total;
-        }
+            foreach ($monthlyRevenues as $month => $total) {
+                $data[$month - 1] = $total;
+            }
+            return $data;
+        });
 
         return view('admin.dashboard', compact(
             'totalProduk',

@@ -33,7 +33,7 @@
             --primary-hover: #0f52ba;
             --dark: #212832;
             --gray: #69707a;
-            --gray-light: #a1aab2;
+            --gray-light: #64748b;
             --bg-body: #f2f6fc;
             --border-color: rgba(33, 40, 50, 0.125);
             --shadow-sm: 0 0.15rem 1.75rem 0 rgba(33, 40, 50, 0.15);
@@ -265,6 +265,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
         div.dataTables_wrapper div.dataTables_length select {
             border: 1px solid #c5ccd6 !important;
@@ -278,6 +280,7 @@
         }
         table.dataTable {
             width: 100% !important;
+            min-width: 600px !important;
             margin-top: 0 !important;
             margin-bottom: 1rem !important;
             border-collapse: collapse !important;
@@ -303,6 +306,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
         .dataTables_paginate .paginate_button {
             padding: 0.375rem 0.75rem !important;
@@ -391,7 +396,7 @@
     <!-- Topnav -->
     <nav class="sb-topnav">
         <div class="flex items-center">
-            <button class="text-slate-500 hover:text-slate-700 focus:outline-none mr-4 bg-transparent border-none p-0 cursor-pointer" @click="toggled = !toggled">
+            <button aria-label="Toggle sidebar" class="text-slate-500 hover:text-slate-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded mr-4 bg-transparent border-none p-0 cursor-pointer" @click="toggled = !toggled">
                 <i class="bi bi-list text-2xl" style="margin:0;"></i>
             </button>
 
@@ -401,7 +406,7 @@
         <ul class="flex items-center gap-4 m-0 p-0 list-none">
             <!-- Profile Dropdown -->
             <li class="relative" x-data="{ userMenuOpen: false }" @click.away="userMenuOpen = false">
-                <button @click="userMenuOpen = !userMenuOpen" class="flex items-center gap-2 focus:outline-none bg-transparent border-none cursor-pointer p-0">
+                <button @click="userMenuOpen = !userMenuOpen" aria-label="Menu Pengguna" aria-haspopup="true" :aria-expanded="userMenuOpen" class="flex items-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded bg-transparent border-none cursor-pointer p-0">
                     <div class="hidden md:block text-right mr-2">
                         <div class="text-sm font-medium" style="color: var(--gray);"><?php echo e(auth()->user()->name ?? 'Administrator'); ?></div>
                     </div>

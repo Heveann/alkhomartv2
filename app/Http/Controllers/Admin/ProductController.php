@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\Category;
+use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
@@ -91,21 +93,8 @@ class ProductController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
     {
-        $request->validate([
-            'nama_produk' => 'required|string|max:255',
-            'category_id' => 'nullable|exists:categories,id',
-            'harga' => 'required|numeric|min:0',
-            'harga_modal' => 'required|numeric|min:0',
-            'stok' => 'required|integer|min:0',
-            'gambar' => 'nullable|array',
-            'gambar.*' => 'image|mimes:jpg,jpeg,png,webp|max:2048',
-            'sizes' => 'nullable|array',
-            'sizes.*.size' => 'required_with:sizes|string|max:50',
-            'sizes.*.stock' => 'required_with:sizes|integer|min:0',
-        ]);
-
         $data = $request->only(['nama_produk', 'category_id', 'harga', 'harga_modal', 'stok']);
 
         $product = Product::create($data);
@@ -143,21 +132,8 @@ class ProductController extends Controller
             ->with('success', 'Produk berhasil ditambahkan!');
     }
 
-    public function update(Request $request, Product $product)
+    public function update(UpdateProductRequest $request, Product $product)
     {
-        $request->validate([
-            'nama_produk' => 'required|string|max:255',
-            'category_id' => 'nullable|exists:categories,id',
-            'harga' => 'required|numeric|min:0',
-            'harga_modal' => 'required|numeric|min:0',
-            'stok' => 'required|integer|min:0',
-            'gambar' => 'nullable|array',
-            'gambar.*' => 'image|mimes:jpg,jpeg,png,webp|max:2048',
-            'sizes' => 'nullable|array',
-            'sizes.*.size' => 'required_with:sizes|string|max:50',
-            'sizes.*.stock' => 'required_with:sizes|integer|min:0',
-        ]);
-
         $data = $request->only(['nama_produk', 'category_id', 'harga', 'harga_modal', 'stok']);
         $product->update($data);
 

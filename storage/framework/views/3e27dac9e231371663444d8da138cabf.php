@@ -9,7 +9,9 @@
         <p class="font-sans-clean text-gray-500 font-medium text-lg md:text-xl mb-12 max-w-2xl leading-relaxed">Koleksi terkurasi dari produk-produk terbaik untuk menyempurnakan hari Anda. Elevate your everyday wardrobe.</p>
         
         <form action="<?php echo e(route('pembeli.products')); ?>" method="GET" class="relative max-w-2xl group" @submit.prevent="fetchProducts(keyword)">
+            <label for="search" class="sr-only">Cari koleksi, pakaian, atau aksesoris</label>
             <input
+                id="search"
                 type="text"
                 name="search"
                 x-model.debounce.400ms="keyword"
@@ -23,8 +25,8 @@
                     <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
                 </svg>
             </span>
-            <button class="absolute right-0 top-1/2 -translate-y-1/2 pb-4 text-gray-400 group-hover:text-black transition focus:outline-none" type="submit">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            <button aria-label="Cari" class="absolute right-0 top-1/2 -translate-y-1/2 pb-4 text-gray-400 group-hover:text-black transition focus:outline-none focus-visible:ring-2 focus-visible:ring-black rounded" type="submit">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
             </button>
         </form>
     </div>
@@ -32,7 +34,7 @@
     <div x-cloak x-show="keyword !== ''" class="flex items-center gap-3 mb-12">
         <span class="text-sm text-gray-400">Hasil pencarian untuk</span>
         <span class="text-sm font-bold text-black" x-text="`&quot;${keyword}&quot;`"></span>
-        <button @click="resetSearch()" class="text-sm text-gray-400 hover:text-black ml-4 transition border-b border-transparent hover:border-black pb-0.5">Hapus pencarian</button>
+        <button @click="resetSearch()" class="text-sm text-gray-400 hover:text-black ml-4 transition border-b border-transparent hover:border-black pb-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-black rounded">Hapus pencarian</button>
     </div>
 
     <!-- Product Grid -->
@@ -42,8 +44,8 @@
             <?php if($products->count() > 0): ?>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
                     <?php $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <div class="group flex flex-col">
-                            <div class="relative w-full aspect-square bg-gray-50 rounded-xl overflow-hidden mb-4">
+                        <div class="group flex flex-col h-full">
+                            <div class="relative w-full aspect-square bg-gray-50 rounded-xl overflow-hidden mb-4 shrink-0">
                                 <?php if($product->gambar): ?>
                                     <img src="<?php echo e(asset('storage/' . $product->gambar)); ?>"
                                          alt="<?php echo e($product->nama_produk); ?>"
@@ -67,11 +69,11 @@
                                     </a>
                                 </div>
                             </div>
-                            <a href="<?php echo e(route('pembeli.products.show', $product)); ?>" class="text-lg font-medium text-black hover:text-gray-600 transition line-clamp-1">
+                            <a href="<?php echo e(route('pembeli.products.show', $product)); ?>" class="text-lg font-medium text-black hover:text-gray-600 transition line-clamp-2">
                                 <?php echo e($product->nama_produk); ?>
 
                             </a>
-                            <div class="text-gray-500 mt-1">
+                            <div class="text-gray-500 mt-auto pt-2">
                                 IDR <?php echo e(number_format($product->harga, 0, ',', '.')); ?>
 
                             </div>
@@ -105,8 +107,8 @@
             <!-- Products -->
             <div x-show="!isLoading && products.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
                 <template x-for="p in products" :key="p.id">
-                    <div class="group flex flex-col">
-                        <div class="relative w-full aspect-square bg-gray-50 rounded-xl overflow-hidden mb-4">
+                    <div class="group flex flex-col h-full">
+                        <div class="relative w-full aspect-square bg-gray-50 rounded-xl overflow-hidden mb-4 shrink-0">
                             <template x-if="p.gambar">
                                 <img :src="p.gambar" :alt="p.nama_produk" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110">
                             </template>
@@ -129,8 +131,8 @@
                                 </a>
                             </div>
                         </div>
-                        <a :href="p.url" class="text-lg font-medium text-black hover:text-gray-600 transition line-clamp-1" x-text="p.nama_produk"></a>
-                        <div class="text-gray-500 mt-1" x-text="p.harga_fmt"></div>
+                        <a :href="p.url" class="text-lg font-medium text-black hover:text-gray-600 transition line-clamp-2" x-text="p.nama_produk"></a>
+                        <div class="text-gray-500 mt-auto pt-2" x-text="p.harga_fmt"></div>
                     </div>
                 </template>
             </div>
@@ -138,7 +140,7 @@
             <!-- Empty State -->
             <div x-show="!isLoading && products.length === 0" class="text-center py-32 border-t border-gray-100 mt-12">
                 <p class="text-gray-400 mb-8 font-medium text-lg">Tidak ada produk yang cocok dengan "<strong class="text-black" x-text="keyword"></strong>".</p>
-                <button @click="resetSearch()" class="text-black font-medium border-b border-black pb-1 hover:text-gray-500 hover:border-gray-500 transition">
+                <button @click="resetSearch()" class="text-black font-medium border-b border-black pb-1 hover:text-gray-500 hover:border-gray-500 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-black rounded">
                     Kembali ke semua produk
                 </button>
             </div>

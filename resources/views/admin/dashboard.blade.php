@@ -74,7 +74,7 @@
     </div>
     <div class="card-body p-0">
         <!-- Chart -->
-        <div class="p-6" style="height: 400px;">
+        <div class="p-4 md:p-6 relative w-full" style="min-height: 300px; height: 40vh; max-height: 400px;">
             <canvas id="revenueChart" width="100%" height="100%"></canvas>
         </div>
     </div>

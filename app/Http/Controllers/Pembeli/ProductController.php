@@ -57,6 +57,7 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
+        $product->load(['category', 'images', 'sizes']);
         return view('pembeli.products.show', compact('product'));
     }
 }

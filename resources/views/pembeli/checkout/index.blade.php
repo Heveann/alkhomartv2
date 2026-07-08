@@ -62,6 +62,9 @@
 
                 <form id="checkoutForm" action="{{ route('pembeli.checkout.process') }}" method="POST">
                     @csrf
+                    @foreach($carts as $cart)
+                        <input type="hidden" name="items[]" value="{{ $cart->id }}">
+                    @endforeach
                     <button type="button" onclick="confirmCheckout()" class="w-full bg-black text-white hover:bg-gray-800 font-medium text-sm tracking-widest uppercase py-5 px-4 transition-colors flex justify-center items-center mb-4">
                         Selesaikan Pembayaran
                     </button>

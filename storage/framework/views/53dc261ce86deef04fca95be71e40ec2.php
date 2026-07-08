@@ -112,6 +112,8 @@
         display: flex !important;
         align-items: center !important;
         justify-content: space-between !important;
+        flex-wrap: wrap !important;
+        gap: 1rem !important;
         padding: 14px 24px !important;
         background: #fafafa !important;
         border-bottom: 1px solid #f1f5f9 !important;
@@ -162,6 +164,7 @@
     /* Table itself */
     table.dataTable {
         width: 100% !important;
+        min-width: 800px !important;
         border-collapse: collapse !important;
         margin: 0 !important;
     }
@@ -207,6 +210,8 @@
         display: flex !important;
         align-items: center !important;
         justify-content: space-between !important;
+        flex-wrap: wrap !important;
+        gap: 1rem !important;
         padding: 12px 24px !important;
         border-top: 1px solid #f1f5f9 !important;
         width: 100% !important;
@@ -369,17 +374,17 @@
                 transition:transform .25s,opacity .25s;">
 
         
-        <div style="display:flex;align-items:center;justify-content:space-between;padding:20px 28px;border-bottom:1px solid #f1f5f9;">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:clamp(16px, 4vw, 20px) clamp(16px, 5vw, 28px);border-bottom:1px solid #f1f5f9;">
             <div style="display:flex;align-items:center;gap:12px;">
                 <span style="width:38px;height:38px;background:#eff6ff;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;">
                     <i class="bi bi-box-seam-fill" style="color:#2563eb;font-size:16px;"></i>
                 </span>
                 <div>
-                    <div style="font-size:16px;font-weight:800;color:#0f172a;letter-spacing:-.02em;">Tambah Produk Baru</div>
+                    <h3 id="addProductModalTitle" style="margin:0;font-size:16px;font-weight:800;color:#0f172a;letter-spacing:-.02em;">Tambah Produk Baru</h3>
                     <div style="font-size:12px;color:#94a3b8;font-weight:500;">Isi form untuk menambahkan produk ke katalog</div>
                 </div>
             </div>
-            <button type="button" onclick="closeAddProductModal()"
+            <button type="button" aria-label="Tutup modal" onclick="closeAddProductModal()"
                     style="width:36px;height:36px;border-radius:10px;border:1px solid #e2e8f0;background:#f8fafc;
                            display:inline-flex;align-items:center;justify-content:center;cursor:pointer;
                            color:#64748b;font-size:18px;transition:all .15s;"
@@ -390,7 +395,7 @@
         </div>
 
         
-        <div style="padding:24px 28px;overflow-y:auto;flex:1;">
+        <div style="padding:clamp(16px, 5vw, 24px) clamp(16px, 5vw, 28px);overflow-y:auto;flex:1;">
             <?php if($errors->any()): ?>
                 <div style="background:#fef2f2;border:1px solid #fecaca;border-radius:12px;padding:14px 18px;margin-bottom:20px;display:flex;gap:10px;align-items:flex-start;">
                     <i class="bi bi-exclamation-circle-fill" style="color:#dc2626;margin-top:2px;flex-shrink:0;"></i>
@@ -511,7 +516,7 @@
         </div>
 
         
-        <div style="display:flex;justify-content:flex-end;gap:10px;padding:16px 28px;border-top:1px solid #f1f5f9;background:#fafafa;border-radius:0 0 20px 20px;">
+        <div style="display:flex;flex-wrap:wrap;justify-content:flex-end;gap:10px;padding:16px clamp(16px, 5vw, 28px);border-top:1px solid #f1f5f9;background:#fafafa;border-radius:0 0 20px 20px;">
             <button type="button" onclick="closeAddProductModal()"
                     style="padding:10px 22px;background:#f1f5f9;border:none;border-radius:10px;font-size:13px;font-weight:700;color:#475569;cursor:pointer;transition:background .15s;"
                     onmouseover="this.style.background='#e2e8f0';"
@@ -527,7 +532,7 @@
 </div>
 
 
-<div id="modalEditProduct" style="display:none;position:fixed;inset:0;z-index:9999;">
+<div id="modalEditProduct" role="dialog" aria-modal="true" aria-labelledby="editProductModalTitle" style="display:none;position:fixed;inset:0;z-index:9999;">
     
     <div onclick="closeEditModal()"
          style="position:absolute;inset:0;background:rgba(15,23,42,.45);backdrop-filter:blur(4px);"></div>
@@ -539,17 +544,17 @@
                 background:#fff;border-radius:20px;box-shadow:0 24px 80px rgba(0,0,0,.18);">
 
         
-        <div style="display:flex;align-items:center;justify-content:space-between;padding:20px 28px;border-bottom:1px solid #f1f5f9;">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:clamp(16px, 4vw, 20px) clamp(16px, 5vw, 28px);border-bottom:1px solid #f1f5f9;">
             <div style="display:flex;align-items:center;gap:12px;">
                 <span style="width:38px;height:38px;background:#f0fdf4;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;">
                     <i class="bi bi-pencil-square" style="color:#16a34a;font-size:16px;"></i>
                 </span>
                 <div>
-                    <div style="font-size:16px;font-weight:800;color:#0f172a;letter-spacing:-.02em;">Edit Produk</div>
+                    <h3 id="editProductModalTitle" style="margin:0;font-size:16px;font-weight:800;color:#0f172a;letter-spacing:-.02em;">Edit Produk</h3>
                     <div style="font-size:12px;color:#94a3b8;font-weight:500;">Perbarui data produk di katalog</div>
                 </div>
             </div>
-            <button type="button" onclick="closeEditModal()"
+            <button type="button" aria-label="Tutup modal" onclick="closeEditModal()"
                     style="width:36px;height:36px;border-radius:10px;border:1px solid #e2e8f0;background:#f8fafc;
                            display:inline-flex;align-items:center;justify-content:center;cursor:pointer;
                            color:#64748b;font-size:18px;transition:all .15s;"
@@ -566,7 +571,7 @@
         </div>
 
         
-        <div id="editModalBody" style="padding:24px 28px;display:none;flex:1;overflow-y:auto;">
+        <div id="editModalBody" style="padding:clamp(16px, 5vw, 24px) clamp(16px, 5vw, 28px);display:none;flex:1;overflow-y:auto;">
             <form id="formEditProduct" method="POST" enctype="multipart/form-data">
                 <?php echo csrf_field(); ?>
                 <?php echo method_field('PUT'); ?>
@@ -669,7 +674,7 @@
         </div>
 
         
-        <div style="display:flex;justify-content:flex-end;gap:10px;padding:16px 28px;border-top:1px solid #f1f5f9;background:#fafafa;border-radius:0 0 20px 20px;">
+        <div style="display:flex;flex-wrap:wrap;justify-content:flex-end;gap:10px;padding:16px clamp(16px, 5vw, 28px);border-top:1px solid #f1f5f9;background:#fafafa;border-radius:0 0 20px 20px;">
             <button type="button" onclick="closeEditModal()"
                     style="padding:10px 22px;background:#f1f5f9;border:none;border-radius:10px;font-size:13px;font-weight:700;color:#475569;cursor:pointer;transition:background .15s;"
                     onmouseover="this.style.background='#e2e8f0';"
